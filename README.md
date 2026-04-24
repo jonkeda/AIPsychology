@@ -6,7 +6,7 @@ A model of how people psychologically adapt to AI in the workplace — covering 
 
 ## Try the Scorecard
 
-**[Launch the AI Adoption Scorecard →](https://YOUR_USERNAME.github.io/AIPsycho/)**
+**[Launch the AI Adoption Scorecard →](https://jonkeda.github.io/AIPsychology/)**
 
 A single-page app (no tracking, no data sent anywhere) that helps you — or your team — figure out where you stand with AI.
 
@@ -43,9 +43,10 @@ Practical tools for managers and teams navigating AI adoption, available in Engl
 **Dutch** ([.my/ChangeManagement/nl/](.my/ChangeManagement/nl/)):
 - Playbook, diagnostic, intervention cards, and scorecards in Dutch
 
-**Interactive App** ([.my/ChangeManagement/app/](.my/ChangeManagement/app/)):
+**Interactive App** ([Live on GitHub Pages](https://jonkeda.github.io/AIPsychology/) · [source](.my/ChangeManagement/app/)):
 - Single-file HTML scorecard — no dependencies, no tracking, works offline
 - Supports individual + team modes in English and Dutch
+- Deployed automatically via GitHub Actions on push to `main`
 
 ### Validation (planned, not yet conducted)
 
