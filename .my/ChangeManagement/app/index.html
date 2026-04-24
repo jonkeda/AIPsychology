@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Adoption Scorecard</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f7f7f8;color:#1a1a2e;line-height:1.6;min-height:100vh;display:flex;justify-content:center;padding:16px}
+.app{max-width:640px;width:100%;margin:0 auto}
+.screen{display:none;opacity:0;transition:opacity .2s ease}
+.screen.active{display:block;opacity:1}
+.card{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:24px;margin-bottom:16px}
+@media(max-width:480px){.card{padding:16px}}
+h1{font-size:1.75rem;font-weight:700;margin-bottom:4px}
+h2{font-size:1.25rem;font-weight:600;margin-bottom:8px}
+h3{font-size:1.1rem;font-weight:600;margin-bottom:8px}
+.subtitle{color:#6b7280;font-size:1rem;margin-bottom:16px}
+.intro{color:#1a1a2e;font-size:.95rem;margin-bottom:24px;line-height:1.7}
+.toggle-group{display:flex;gap:0;border-radius:8px;overflow:hidden;border:2px solid #e2e4e9;margin-bottom:16px}
+.toggle-btn{flex:1;padding:10px 16px;border:none;background:#fff;color:#1a1a2e;font-size:.95rem;font-weight:500;cursor:pointer;transition:background .15s,color .15s;text-align:center}
+.toggle-btn.active{background:#2563eb;color:#fff}
+.toggle-btn:hover:not(.active){background:#f0f4ff}
+.toggle-label{font-size:.85rem;color:#6b7280;margin-bottom:6px;font-weight:500}
+.btn-primary{display:block;width:100%;padding:14px;border:none;border-radius:8px;background:#2563eb;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;transition:background .15s}
+.btn-primary:hover{background:#1d4ed8}
+.btn-primary:disabled{background:#a5b4cf;cursor:not-allowed}
+.btn-secondary{display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border:2px solid #e2e4e9;border-radius:8px;background:#fff;color:#1a1a2e;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .15s}
+.btn-secondary:hover{border-color:#2563eb;color:#2563eb}
+.progress-wrap{margin-bottom:16px}
+.progress-bar-bg{width:100%;height:4px;background:#e2e4e9;border-radius:2px;overflow:hidden}
+.progress-bar-fill{height:100%;background:#2563eb;border-radius:2px;transition:width .3s ease}
+.progress-text{font-size:.85rem;color:#6b7280;margin-top:6px}
+.options{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.option-card{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;border:2px solid #e2e4e9;border-radius:8px;background:#fff;cursor:pointer;transition:border-color .15s,background .15s;text-align:left;font-size:.95rem;color:#1a1a2e;line-height:1.5}
+.option-card:hover{border-color:#2563eb;background:#f0f4ff}
+.option-card.selected{border-color:#2563eb;background:#eff4ff}
+.option-card input[type="radio"]{display:none}
+.option-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:2px solid #e2e4e9;font-weight:600;font-size:.85rem;flex-shrink:0;transition:border-color .15s,background .15s,color .15s}
+.option-card.selected .option-num{border-color:#2563eb;background:#2563eb;color:#fff}
+.option-label{flex:1}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.statement-text{font-size:1.05rem;font-weight:500;line-height:1.6}
+fieldset{border:none;padding:0;margin:0}
+legend{font-size:1.05rem;font-weight:500;line-height:1.6;margin-bottom:4px;width:100%}
+.bonus-block{margin-bottom:24px}
+.bonus-block:last-of-type{margin-bottom:16px}
+.bonus-letter{font-size:.8rem;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;font-weight:600}
+.result-phase{border-left:4px solid #2563eb;padding-left:16px;margin-bottom:8px}
+.result-phase .phase-name{font-size:1.1rem;font-weight:700;color:#2563eb}
+.result-phase .tagline{font-style:italic;color:#6b7280;margin-bottom:8px}
+.result-phase .desc{margin-bottom:8px;font-size:.95rem;line-height:1.6}
+.result-phase .help{background:#f0f4ff;padding:12px;border-radius:6px;font-size:.9rem;line-height:1.5}
+.help strong{font-weight:600}
+.chart{margin-top:16px}
+.chart-row{display:flex;align-items:center;margin-bottom:8px;gap:8px}
+.chart-label{width:170px;flex-shrink:0;font-size:.85rem;font-weight:500;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:480px){.chart-label{width:120px;font-size:.8rem}}
+.chart-bar-wrap{flex:1;height:24px;background:#e2e4e9;border-radius:4px;overflow:hidden;position:relative}
+.chart-bar{height:100%;border-radius:4px;transition:width .5s ease;background:#93c5fd}
+.chart-bar.dominant{background:#2563eb}
+.chart-score{width:36px;font-size:.85rem;color:#6b7280;flex-shrink:0;text-align:left}
+.star{color:#2563eb;margin-left:2px}
+.bonus-result{padding:16px;background:#fef9ef;border-radius:8px;border:1px solid #f0e4c8;font-size:.95rem;line-height:1.6}
+.interp-notes{font-size:.9rem;color:#6b7280;line-height:1.6;margin-top:8px}
+.transition-note{background:#fff7ed;padding:12px;border-radius:6px;font-size:.9rem;line-height:1.5;margin-bottom:16px;border:1px solid #fed7aa}
+.spread-section{margin-top:24px}
+.spread-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.spread-phase-label{width:140px;flex-shrink:0;font-size:.85rem;font-weight:500;text-align:right}
+@media(max-width:480px){.spread-phase-label{width:100%;text-align:left;margin-bottom:4px}}
+.spread-options{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.spread-opt{padding:6px 12px;border:2px solid #e2e4e9;border-radius:6px;font-size:.8rem;cursor:pointer;background:#fff;transition:border-color .15s,background .15s;white-space:nowrap}
+.spread-opt:hover{border-color:#2563eb;background:#f0f4ff}
+.spread-opt.selected{border-color:#2563eb;background:#eff4ff}
+.section-title{font-size:1rem;font-weight:600;margin-bottom:12px;margin-top:24px;color:#1a1a2e}
+.section-title:first-child{margin-top:0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- START SCREEN -->
+  <div class="screen active" id="screen-start">
+    <div class="card">
+      <div class="toggle-label" id="mode-label">Mode</div>
+      <div class="toggle-group" role="radiogroup" aria-labelledby="mode-label">
+        <button class="toggle-btn active" data-mode="individual" id="btn-mode-individual" role="radio" aria-checked="true">Personal</button>
+        <button class="toggle-btn" data-mode="team" id="btn-mode-team" role="radio" aria-checked="false">Team</button>
+      </div>
+      <div class="toggle-label">Language</div>
+      <div class="toggle-group" role="radiogroup" aria-label="Language">
+        <button class="toggle-btn active" data-lang="en" role="radio" aria-checked="true">EN</button>
+        <button class="toggle-btn" data-lang="nl" role="radio" aria-checked="false">NL</button>
+      </div>
+      <h1 id="start-title"></h1>
+      <div class="subtitle" id="start-subtitle"></div>
+      <p class="intro" id="start-intro"></p>
+      <button class="btn-primary" id="btn-start"></button>
+    </div>
+  </div>
+
+  <!-- QUESTION SCREEN -->
+  <div class="screen" id="screen-question">
+    <div class="card">
+      <div class="progress-wrap">
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="21" style="width:0%"></div></div>
+        <div class="progress-text" id="progress-text"></div>
+      </div>
+      <fieldset id="question-fieldset">
+        <legend class="statement-text" id="statement-text"></legend>
+        <div class="options" id="question-options"></div>
+      </fieldset>
+      <div class="nav-row">
+        <button class="btn-secondary" id="btn-back" style="visibility:hidden">&larr; <span id="btn-back-label">Back</span></button>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BONUS SCREEN -->
+  <div class="screen" id="screen-bonus">
+    <div class="card">
+      <h2 id="bonus-title"></h2>
+      <p class="subtitle" id="bonus-subtitle"></p>
+      <div class="bonus-block" id="bonus-a-block">
+        <div class="bonus-letter">A</div>
+        <fieldset>
+          <legend id="bonus-a-text"></legend>
+          <div class="options" id="bonus-a-options"></div>
+        </fieldset>
+      </div>
+      <div class="bonus-block" id="bonus-b-block">
+        <div class="bonus-letter">B</div>
+        <fieldset>
+          <legend id="bonus-b-text"></legend>
+          <div class="options" id="bonus-b-options"></div>
+        </fieldset>
+      </div>
+      <div class="nav-row">
+        <button class="btn-secondary" id="btn-back-bonus">&larr; <span id="btn-back-bonus-label">Back</span></button>
+        <button class="btn-primary" id="btn-see-results" disabled style="flex:0 0 auto;width:auto;padding:12px 24px"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="screen" id="screen-results">
+    <div class="card" id="results-card"></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ===== DATA ===== */
+const DATA = {
+en: {
+individual: {
+title: "Where do you stand with AI?",
+subtitle: "A personal scorecard",
+intro: "This scorecard helps you figure out where you stand with AI at work. Not a test, not a verdict \u2014 a mirror. Be honest; the score is only for you.",
+scoreLabels: ["No, doesn\u2019t apply to me", "Somewhat / sometimes", "Yes, that\u2019s me right now"],
+statements: [
+{block:"A",text:"I don\u2019t really see how AI is relevant to my work."},
+{block:"A",text:"When AI comes up in conversation, I don\u2019t have much to contribute."},
+{block:"A",text:"I haven\u2019t tried any AI tool for my own work tasks yet."},
+{block:"B",text:"I\u2019ve tried AI and it mostly disappoints."},
+{block:"B",text:"When AI produces something good, I think: \u2018but it can\u2019t do this consistently.\u2019"},
+{block:"B",text:"I judge AI by the standard of my best work \u2014 and it doesn\u2019t measure up."},
+{block:"C",text:"I sometimes wonder what my role will be if AI keeps improving."},
+{block:"C",text:"When AI does something well that I\u2019m good at, it unsettles me."},
+{block:"C",text:"I\u2019ve noticed myself working harder to prove my value since AI arrived."},
+{block:"D",text:"I use AI, but only for specific tasks \u2014 I have clear boundaries."},
+{block:"D",text:"I always do the final version myself \u2014 AI gives me a starting point."},
+{block:"D",text:"I\u2019ve decided exactly which parts of my work AI may touch \u2014 and which are off-limits."},
+{block:"E",text:"I\u2019m testing AI systematically to understand where it works and where it doesn\u2019t."},
+{block:"E",text:"I compare AI output to my own work to calibrate my expectations."},
+{block:"E",text:"I\u2019m developing a sense for when to use AI and when not to."},
+{block:"F",text:"I want to use AI for as much as possible \u2014 it saves so much time."},
+{block:"F",text:"I catch myself not trusting my own work anymore without an AI check."},
+{block:"F",text:"I recommend AI to colleagues without caveats \u2014 it just works."},
+{block:"G",text:"AI is just a tool to me \u2014 like email or a spreadsheet."},
+{block:"G",text:"I know when AI adds value and when it doesn\u2019t, and I act accordingly."},
+{block:"G",text:"I don\u2019t think much about AI anymore \u2014 it\u2019s part of how I work."}
+],
+bonus: {
+a: "My hesitation about AI is mainly about what it means for my role and identity.",
+b: "My hesitation about AI is mainly about the quality and usability of the tools."
+},
+bonusInterpretations: {
+aHigher: "Your hesitation is mainly emotional \u2014 about who you are in your work, not about the technology itself.",
+bHigher: "Your hesitation is mainly practical \u2014 you\u2019d use AI more if the tools were better.",
+equal: "Both factors play a role. That\u2019s common."
+},
+results: {
+A:{phase:"Dismissal",tagline:"AI isn\u2019t relevant to me",desc:"You haven\u2019t engaged with AI yet, and you don\u2019t feel a pressing need to. This isn\u2019t laziness \u2014 it often means AI simply hasn\u2019t touched your daily work in a visible way.",help:"Try one small task with an AI tool and see what happens."},
+B:{phase:"Resistance",tagline:"It\u2019s not good enough",desc:"You\u2019ve tried AI and found it wanting. You\u2019re holding it to high standards \u2014 often your own expert standards \u2014 and it\u2019s not meeting them.",help:"Reframe AI as a rough-draft tool rather than a finished-product tool."},
+C:{phase:"The Hit",tagline:"What\u2019s my role now?",desc:"AI doing something well that you\u2019re proud of has shaken you. This is the most personal phase \u2014 it touches your professional identity. It\u2019s uncomfortable, and it\u2019s completely normal.",help:"Acknowledge the feeling and separate \u2018AI can do X\u2019 from \u2018I\u2019m no longer valuable.\u2019"},
+D:{phase:"The Deal",tagline:"Only for X",desc:"You\u2019ve found a way to coexist with AI by drawing clear lines: AI does this, I do that. It feels manageable, but the lines can become rigid.",help:"Consciously revisit your boundaries every few weeks."},
+E:{phase:"Building Trust",tagline:"Let me test first",desc:"You\u2019re in exploration mode \u2014 comparing, testing, calibrating. This is a productive phase. You\u2019re building your own evidence base.",help:"Keep notes on your experiments and share findings with colleagues."},
+F:{phase:"Overcompensation",tagline:"Use it for everything!",desc:"You\u2019ve swung to the other side \u2014 AI is brilliant and you want to maximise it. The risk is losing your own judgement or quality standards.",help:"Deliberately do some tasks without AI to maintain your own skills."},
+G:{phase:"Stabilisation",tagline:"Just a tool",desc:"AI has found its place in your workflow. You use it where it helps, skip it where it doesn\u2019t, and you don\u2019t think about it much anymore.",help:"Stay curious without feeling pressure. Watch for new capabilities that might shift the balance."}
+},
+interpretationNotes: "Highest block = your likely dominant phase. Two blocks tied? You\u2019re in transition \u2014 that\u2019s normal. Multiple high blocks? You\u2019re processing several things at once. This is a conversation starter, not a diagnosis."
+},
+team: {
+title: "Where is your team?",
+subtitle: "A scorecard for leaders",
+intro: "This scorecard helps you map where your team stands. Not by asking them to fill in a form, but by scoring what you observe. Be honest about what you see, not what you hope.",
+scoreLabels: ["No, I don\u2019t see this", "In one or two people / occasionally", "In several people / regularly"],
+statements: [
+{block:"A",text:"AI doesn\u2019t come up organically in team meetings."},
+{block:"A",text:"When I mention AI, I get polite nods but no follow-up."},
+{block:"A",text:"Nobody on the team has tried an AI tool on their own initiative."},
+{block:"B",text:"Team members mostly share failed AI outputs, rarely successful ones."},
+{block:"B",text:"Team members test AI with tasks they know it will fail at."},
+{block:"B",text:"There are sarcastic or dismissive remarks about AI in group settings."},
+{block:"C",text:"One or more team members have gone noticeably quiet about AI after initially engaging."},
+{block:"C",text:"I hear statements (even as jokes) about being replaced by AI."},
+{block:"C",text:"Some team members are working harder or more perfectionistically than before."},
+{block:"D",text:"Team members set explicit rules about what AI may and may not do."},
+{block:"D",text:"There are strong reactions when someone uses AI for something \u2018outside the agreement.\u2019"},
+{block:"D",text:"\u2018But I always do the final version myself\u2019 is a common refrain."},
+{block:"E",text:"Some team members are methodically testing AI and comparing results."},
+{block:"E",text:"People share findings about when AI works well and when it doesn\u2019t."},
+{block:"E",text:"The emotional charge around AI has dropped \u2014 it\u2019s becoming a practical question."},
+{block:"F",text:"Some team members accept AI output without adequate review."},
+{block:"F",text:"There\u2019s peer pressure to use AI (or guilt about not using it)."},
+{block:"F",text:"Quality is dropping in some areas due to over-reliance on AI."},
+{block:"G",text:"AI is no longer a special topic in team meetings."},
+{block:"G",text:"Most team members have a working balance between AI and manual work."},
+{block:"G",text:"The team adapts when new AI capabilities arrive without major disruption."}
+],
+bonus: {
+a: "The resistance I see is mainly emotional \u2014 about roles, identity, and fear.",
+b: "The resistance I see is mainly practical \u2014 about tool quality, workflow fit, and output reliability."
+},
+bonusInterpretations: {
+aHigher: "The resistance is mainly emotional. Pushing harder on tools and training won\u2019t help \u2014 you need to address the underlying concerns about identity and value.",
+bHigher: "The resistance is mainly practical. Better tools, clearer use cases, and workflow integration will move things forward.",
+equal: "Both factors are at play. You\u2019ll need to work on both fronts."
+},
+results: {
+A:{phase:"Dismissal",tagline:"AI isn\u2019t relevant to us",desc:"Your team hasn\u2019t engaged with AI in any meaningful way. Conversations about it fizzle out. You\u2019ll notice a lack of curiosity rather than active opposition.",help:"Don\u2019t mandate \u2014 create low-pressure opportunities to experiment. Show, don\u2019t tell."},
+B:{phase:"Resistance",tagline:"It\u2019s not good enough",desc:"Your team is actively pushing back. You\u2019ll hear cherry-picked failures, impossibly high benchmarks, and dismissive humour.",help:"Acknowledge the valid criticisms, then redirect to realistic use cases."},
+C:{phase:"The Hit",tagline:"What\u2019s our role now?",desc:"Some team members are quietly struggling with what AI means for their professional identity. You\u2019ll see withdrawal, overperformance, or jokes that land a bit too hard.",help:"Create space for honest conversation. Name the elephant in the room yourself first."},
+D:{phase:"The Deal",tagline:"Only for X",desc:"Your team has drawn lines around AI use \u2014 often rigid ones. You\u2019ll see strong reactions when boundaries are crossed.",help:"Respect the boundaries but keep them visible and revisable."},
+E:{phase:"Building Trust",tagline:"Let us test first",desc:"Part of your team is in productive exploration mode. You\u2019ll see methodical testing, comparisons, and practical discussions replacing emotional ones.",help:"Support with time, tools, and a way to share findings."},
+F:{phase:"Overcompensation",tagline:"Use it for everything!",desc:"Some team members have swung to uncritical AI adoption. You\u2019ll see quality drops, reduced checking, and social pressure on others to follow suit.",help:"Reintroduce quality standards without killing enthusiasm."},
+G:{phase:"Stabilisation",tagline:"Just a tool",desc:"AI has found its place in the team\u2019s workflow. It\u2019s no longer a special topic.",help:"Maintain by staying open to new capabilities and keeping the team\u2019s critical eye sharp."}
+},
+interpretationNotes: "Your team is probably not in one single phase. The score tells you where the centre of gravity is. A large gap between highest and second-highest means a clear dominant phase. A small gap means transition.",
+spreadLabels: ["1\u20132 people", "Part of team", "Majority"]
+}
+},
+nl: {
+individual: {
+title: "Hoe sta jij tegenover AI?",
+subtitle: "Scorekaart voor jezelf",
+intro: "Deze scorekaart helpt je uitzoeken waar je staat met AI op je werk. Geen test, geen oordeel \u2014 een spiegel. Wees eerlijk; de score is alleen voor jou.",
+scoreLabels: ["Nee, herken ik niet", "Een beetje / soms", "Ja, dat klopt voor mij"],
+statements: [
+{block:"A",text:"Ik zie niet goed hoe AI relevant is voor mijn werk."},
+{block:"A",text:"Als AI ter sprake komt, heb ik er niet zoveel bij te zeggen."},
+{block:"A",text:"Ik heb nog geen AI-tool uitgeprobeerd voor mijn eigen werktaken."},
+{block:"B",text:"Ik heb AI geprobeerd en het valt vooral tegen."},
+{block:"B",text:"Als AI iets goeds oplevert, denk ik: \u2018maar dit kan het niet consistent.\u2019"},
+{block:"B",text:"Ik beoordeel AI aan de standaard van mijn beste werk \u2014 en het haalt dat niet."},
+{block:"C",text:"Ik vraag me soms af wat mijn rol nog is als AI blijft verbeteren."},
+{block:"C",text:"Wanneer AI iets goed doet waar ik goed in ben, maakt me dat onrustig."},
+{block:"C",text:"Ik merk dat ik harder werk om mijn waarde te bewijzen sinds AI er is."},
+{block:"D",text:"Ik gebruik AI, maar alleen voor specifieke taken \u2014 ik heb duidelijke grenzen."},
+{block:"D",text:"Het eindresultaat doe ik altijd zelf \u2014 AI levert me een startpunt."},
+{block:"D",text:"Ik heb precies bepaald welke delen van mijn werk AI mag aanraken \u2014 en welke niet."},
+{block:"E",text:"Ik test AI systematisch om te begrijpen waar het werkt en waar niet."},
+{block:"E",text:"Ik vergelijk AI-output met mijn eigen werk om mijn verwachtingen te kalibreren."},
+{block:"E",text:"Ik bouw een gevoel op voor wanneer ik AI wel en niet inzet."},
+{block:"F",text:"Ik wil AI voor zoveel mogelijk inzetten \u2014 het bespaart zoveel tijd."},
+{block:"F",text:"Ik betrap mezelf erop dat ik mijn eigen werk niet meer vertrouw zonder AI-check."},
+{block:"F",text:"Ik beveel AI aan bij collega\u2019s zonder voorbehoud \u2014 het werkt gewoon."},
+{block:"G",text:"AI is gewoon gereedschap voor mij \u2014 zoals e-mail of een spreadsheet."},
+{block:"G",text:"Ik weet wanneer AI waarde toevoegt en wanneer niet, en handel daarnaar."},
+{block:"G",text:"Ik sta er niet meer zo bij stil \u2014 het is onderdeel van hoe ik werk."}
+],
+bonus: {
+a: "Mijn aarzeling rond AI gaat vooral over wat het betekent voor mijn rol en identiteit.",
+b: "Mijn aarzeling rond AI gaat vooral over de kwaliteit en bruikbaarheid van de tools."
+},
+bonusInterpretations: {
+aHigher: "Je aarzeling is vooral emotioneel. Dat is niet irrationeel \u2014 het gaat over wie je bent in je werk.",
+bHigher: "Je aarzeling is vooral praktisch. Je hebt concrete bezwaren over wat de tools wel en niet kunnen.",
+equal: "Beide spelen een rol. Dat is het vaakst het geval."
+},
+results: {
+A:{phase:"Afwijzing",tagline:"AI is niks voor mij",desc:"AI voelt als iets voor anderen \u2014 andere afdelingen, andere functies, andere mensen. Je hebt geen actieve weerstand, maar ook geen reden om je erin te verdiepen.",help:"Probeer \u00e9\u00e9n concrete, laagdrempelige toepassing op informatieniveau."},
+B:{phase:"Weerstand",tagline:"Het deugt niet",desc:"Je hebt AI geprobeerd en je bent niet onder de indruk. Je ziet vooral de fouten en beperkingen \u2014 en die zijn re\u00ebel.",help:"Kijk naar AI als een startpunt dat je bijschaaft, niet als een vervanger die perfect moet zijn."},
+C:{phase:"De klap",tagline:"Wat is mijn rol nog?",desc:"Hier raakt het aan je professionele identiteit. Als AI kan wat jij goed doet, wat maakt jou dan nog waardevol? Dit is de zwaarste fase \u2014 en de meest onderschatte.",help:"Herdefinieer je rol. Je waarde zit niet in de uitvoering, maar in het oordeel, de context en de keuzes die je maakt."},
+D:{phase:"De deal",tagline:"Alleen voor X",desc:"Je hebt een werkbare regeling gevonden: AI mag dit, maar niet dat. Die grenzen geven je controle en zijn een gezonde tussenstap.",help:"Respecteer je eigen grenzen, maar sta open voor het geleidelijk bijstellen ervan."},
+E:{phase:"Vertrouwen opbouwen",tagline:"Eerst testen",desc:"Je bent voorbij de emotie en zit in de praktijk. Je test, vergelijkt, noteert wanneer AI goed werkt en wanneer niet.",help:"Geef jezelf de tijd. Deel je bevindingen \u2014 anderen leren van jouw experimenten."},
+F:{phase:"Overcompensatie",tagline:"Overal inzetten!",desc:"Je snapt AI, je bent enthousiast, en je wilt het overal gebruiken. Het risico: je neemt output klakkeloos over.",help:"Stel kwaliteitsnormen voor jezelf. AI-output is een startpunt, geen eindproduct."},
+G:{phase:"Stabilisatie",tagline:"Gewoon gereedschap",desc:"AI is niet meer bijzonder voor je. Je weet wanneer het helpt en wanneer niet, en je handelt daarnaar.",help:"Houd ruimte voor terugval bij nieuwe AI-toepassingen. Stabilisatie is geen eindpunt."}
+},
+interpretationNotes: "Hoogste blok = je waarschijnlijke dominante fase. Twee blokken gelijk? Je zit in een overgang \u2014 dat is normaal. Meerdere hoge blokken? Je verwerkt meerdere dingen tegelijk. Dit is een gespreksstarter, geen diagnose."
+},
+team: {
+title: "Waar staat je team?",
+subtitle: "Scorekaart voor leidinggevenden",
+intro: "Deze scorekaart helpt je in kaart brengen waar je team staat met AI-adoptie. Niet door ze een formulier te laten invullen, maar door te scoren wat je observeert. Wees eerlijk over wat je ziet, niet over wat je hoopt.",
+scoreLabels: ["Nee, dit zie ik niet", "Bij een enkeling / soms", "Bij meerdere mensen / regelmatig"],
+statements: [
+{block:"A",text:"AI komt niet vanzelf ter sprake in teamoverleggen."},
+{block:"A",text:"Als ik AI noem, krijg ik beleefde knikjes maar geen opvolging."},
+{block:"A",text:"Niemand in het team heeft op eigen initiatief een AI-tool uitgeprobeerd."},
+{block:"B",text:"Teamleden delen vooral mislukte AI-outputs, zelden geslaagde."},
+{block:"B",text:"Teamleden testen AI met taken waarvan ze weten dat het zal falen."},
+{block:"B",text:"Er zijn sarcastische of afwijzende opmerkingen over AI in groepsgesprekken."},
+{block:"C",text:"Een of meer teamleden zijn opvallend stil geworden over AI na een eerste kennismaking."},
+{block:"C",text:"Ik hoor uitspraken (ook als grap) over vervangen worden door AI."},
+{block:"C",text:"Sommige teamleden werken harder of perfectionistischer dan voorheen."},
+{block:"D",text:"Teamleden stellen expliciete regels op over wat AI wel en niet mag doen."},
+{block:"D",text:"Er komen sterke reacties als iemand AI inzet voor iets \u2018buiten de afspraak.\u2019"},
+{block:"D",text:"\u2018Maar het eindresultaat doe ik altijd zelf\u2019 is een veelgehoorde uitspraak."},
+{block:"E",text:"Sommige teamleden testen AI methodisch en vergelijken resultaten."},
+{block:"E",text:"Mensen delen bevindingen over wanneer AI goed en slecht presteert."},
+{block:"E",text:"De emotionele lading rond AI is afgenomen \u2014 het wordt een praktische vraag."},
+{block:"F",text:"Sommige teamleden nemen AI-output over zonder voldoende controle."},
+{block:"F",text:"Er is groepsdruk om AI te gebruiken (of schuldgevoel over niet-gebruik)."},
+{block:"F",text:"De kwaliteit daalt op plekken door overmatig vertrouwen op AI."},
+{block:"G",text:"AI is geen bijzonder onderwerp meer in teamvergaderingen."},
+{block:"G",text:"De meeste teamleden hebben een werkbare balans tussen AI en handmatig werk."},
+{block:"G",text:"Het team past zich aan wanneer er nieuwe AI-mogelijkheden komen, zonder grote onrust."}
+],
+bonus: {
+a: "Het verzet dat ik zie is vooral emotioneel \u2014 het gaat over rollen, identiteit en angst.",
+b: "Het verzet dat ik zie is vooral praktisch \u2014 het gaat over toolkwaliteit, workflow en output."
+},
+bonusInterpretations: {
+aHigher: "Het verzet in je team zit vooral in de emotionele hoek. Training helpt hier niet \u2014 gesprekken wel.",
+bHigher: "Het verzet is vooral praktisch. Hier helpt betere toolkeuze, begeleiding in prompten en realistische verwachtingen.",
+equal: "Beide spelen een rol. Begin met het emotionele \u2014 als dat niet geadresseerd wordt, landt de praktische hulp niet."
+},
+results: {
+A:{phase:"Afwijzing",tagline:"AI is niks voor ons",desc:"Je team ziet AI niet als relevant voor het eigen werk. Er is geen weerstand \u2014 er is onverschilligheid.",help:"Maak AI zichtbaar door het zelf te gebruiken. Nodig uit, maar verplicht niet."},
+B:{phase:"Weerstand",tagline:"Het deugt niet",desc:"Je team heeft AI geprobeerd en focust op de tekortkomingen. Mislukte outputs worden breed gedeeld, geslaagde niet.",help:"Erken de beperkingen openlijk. Herformuleer de verwachting: startpunt, geen eindproduct."},
+C:{phase:"De klap",tagline:"Wat is onze rol nog?",desc:"Een of meer teamleden voelen zich bedreigd in hun professionele identiteit. Je merkt het aan stilte, cynisme of opvallend harder werken.",help:"Normaliseer het gevoel. Plan 1-op-1 gesprekken. Verhoog het delegatieniveau niet."},
+D:{phase:"De deal",tagline:"Alleen voor X",desc:"Het team heeft grenzen getrokken: AI mag dit, maar niet dat. Die grenzen zijn functioneel en geven controle.",help:"Respecteer de grenzen. Vier de hybride aanpak \u2014 het is een gezonde tussenstap."},
+E:{phase:"Vertrouwen opbouwen",tagline:"Eerst testen",desc:"Teamleden testen AI methodisch en delen bevindingen. De emotionele lading neemt af.",help:"Faciliteer de testfase. Druk niet op snelheid."},
+F:{phase:"Overcompensatie",tagline:"Overal inzetten!",desc:"Sommige teamleden nemen AI-output klakkeloos over of cre\u00ebren druk op anderen om mee te doen.",help:"Stel kwaliteitsnormen. Bescherm teamleden die in een eerdere fase zitten."},
+G:{phase:"Stabilisatie",tagline:"Gewoon gereedschap",desc:"AI is geen bijzonder onderwerp meer. Het team heeft een werkbare balans gevonden.",help:"Plan periodieke check-ins. Houd ruimte voor terugval."}
+},
+interpretationNotes: "Je team zit waarschijnlijk niet in \u00e9\u00e9n fase. De score vertelt je waar het zwaartepunt ligt. Groot verschil tussen hoogste en op-een-na-hoogste? Duidelijke dominante fase. Klein verschil? Je team is in transitie.",
+spreadLabels: ["1\u20132 mensen", "Deel van het team", "Meerderheid"]
+}
+}
+};
+
+const LABELS = {
+en: {
+startButton:"Start",nextButton:"Next",backButton:"Back",seeResults:"See results",startOver:"Start over",
+statementOf:"Statement {current} of {total}",bonusTitle:"Two more statements",
+bonusSubtitle:"These help distinguish whether your relationship with AI is more emotional or practical.",
+resultsTitle:"Your result",dominantPhase:"Your dominant phase",allScores:"All phase scores",
+bonusResult:"Emotional or practical?",interpretationTitle:"How to read this",
+modeIndividual:"Personal",modeTeam:"Team",
+spreadTitle:"How widespread is this in your team?",
+teamSpreadIntro:"For each phase, indicate how broadly you observe this behaviour."
+},
+nl: {
+startButton:"Start",nextButton:"Volgende",backButton:"Terug",seeResults:"Bekijk resultaat",startOver:"Opnieuw beginnen",
+statementOf:"Stelling {current} van {total}",bonusTitle:"Nog twee stellingen",
+bonusSubtitle:"Deze helpen onderscheiden of je relatie met AI vooral emotioneel of praktisch is.",
+resultsTitle:"Je resultaat",dominantPhase:"Je dominante fase",allScores:"Alle fasescores",
+bonusResult:"Emotioneel of praktisch?",interpretationTitle:"Hoe lees je dit?",
+modeIndividual:"Persoonlijk",modeTeam:"Team",
+spreadTitle:"Hoe breed zie je dit in je team?",
+teamSpreadIntro:"Geef per fase aan hoe breed je dit gedrag observeert."
+}
+};
+
+const BLOCKS = ["A","B","C","D","E","F","G"];
+
+/* ===== STATE ===== */
+let state = {
+lang: "en",
+mode: "individual",
+currentQ: 0,
+answers: new Array(21).fill(-1),
+shuffled: [],
+bonusA: -1,
+bonusB: -1,
+spread: {}
+};
+
+/* ===== HELPERS ===== */
+function $(id){ return document.getElementById(id); }
+function d(){ return DATA[state.lang][state.mode]; }
+function l(){ return LABELS[state.lang]; }
+
+function fisherYates(arr){
+  const a = arr.map(function(item,i){ return {item:item,origIndex:i}; });
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    const t=a[i];a[i]=a[j];a[j]=t;
+  }
+  return a;
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){
+    s.classList.remove('active');
+  });
+  var el = $(id);
+  el.classList.add('active');
+  setTimeout(function(){
+    var first = el.querySelector('button:not([style*="hidden"]),input,[tabindex="0"]');
+    if(first) first.focus();
+  },50);
+}
+
+/* ===== START SCREEN ===== */
+function updateStartScreen(){
+  var dd = d(), ll = l();
+  document.documentElement.lang = state.lang;
+  $('start-title').textContent = dd.title;
+  $('start-subtitle').textContent = dd.subtitle;
+  $('start-intro').textContent = dd.intro;
+  $('btn-start').textContent = ll.startButton;
+  $('btn-mode-individual').textContent = ll.modeIndividual;
+  $('btn-mode-team').textContent = ll.modeTeam;
+}
+
+// Mode toggles
+document.querySelectorAll('[data-mode]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    state.mode = this.dataset.mode;
+    document.querySelectorAll('[data-mode]').forEach(function(b){
+      b.classList.remove('active');
+      b.setAttribute('aria-checked','false');
+    });
+    this.classList.add('active');
+    this.setAttribute('aria-checked','true');
+    updateStartScreen();
+  });
+});
+
+// Lang toggles
+document.querySelectorAll('[data-lang]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    state.lang = this.dataset.lang;
+    document.querySelectorAll('[data-lang]').forEach(function(b){
+      b.classList.remove('active');
+      b.setAttribute('aria-checked','false');
+    });
+    this.classList.add('active');
+    this.setAttribute('aria-checked','true');
+    updateStartScreen();
+  });
+});
+
+// Start button
+$('btn-start').addEventListener('click', function(){
+  var stmts = d().statements;
+  state.shuffled = fisherYates(stmts);
+  state.answers = new Array(21).fill(-1);
+  state.currentQ = 0;
+  state.bonusA = -1;
+  state.bonusB = -1;
+  state.spread = {};
+  showQuestion();
+  showScreen('screen-question');
+});
+
+/* ===== QUESTION SCREEN ===== */
+function showQuestion(){
+  var dd = d(), ll = l();
+  var q = state.currentQ;
+  var total = 21;
+  var pct = ((q+1)/total)*100;
+  var fill = $('progress-fill');
+  fill.style.width = pct+'%';
+  fill.setAttribute('aria-valuenow', q+1);
+  fill.setAttribute('aria-valuemax', total);
+  $('progress-text').textContent = ll.statementOf.replace('{current}',q+1).replace('{total}',total);
+
+  var s = state.shuffled[q];
+  $('statement-text').textContent = s.item.text;
+
+  var optWrap = $('question-options');
+  optWrap.innerHTML = '';
+  for(var i=0;i<3;i++){
+    var card = document.createElement('label');
+    card.className = 'option-card' + (state.answers[q]===i?' selected':'');
+    card.setAttribute('tabindex','0');
+    var radio = document.createElement('input');
+    radio.type='radio';radio.name='q'+q;radio.value=i;
+    if(state.answers[q]===i) radio.checked=true;
+    var num = document.createElement('span');
+    num.className='option-num';num.textContent=i;
+    var lbl = document.createElement('span');
+    lbl.className='option-label';lbl.textContent=dd.scoreLabels[i];
+    card.appendChild(radio);
+    card.appendChild(num);
+    card.appendChild(lbl);
+    (function(val,cardEl){
+      cardEl.addEventListener('click', function(e){
+        e.preventDefault();
+        selectAnswer(val);
+      });
+      cardEl.addEventListener('keydown', function(e){
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();selectAnswer(val);}
+      });
+    })(i,card);
+    optWrap.appendChild(card);
+  }
+
+  $('btn-back').style.visibility = q===0?'hidden':'visible';
+  $('btn-back-label').textContent = ll.backButton;
+}
+
+function selectAnswer(val){
+  state.answers[state.currentQ] = val;
+  var cards = $('question-options').querySelectorAll('.option-card');
+  cards.forEach(function(c,i){
+    c.classList.toggle('selected', i===val);
+  });
+  setTimeout(function(){
+    if(state.currentQ < 20){
+      state.currentQ++;
+      showQuestion();
+    } else {
+      showBonusScreen();
+      showScreen('screen-bonus');
+    }
+  },300);
+}
+
+$('btn-back').addEventListener('click', function(){
+  if(state.currentQ>0){
+    state.currentQ--;
+    showQuestion();
+  }
+});
+
+/* ===== BONUS SCREEN ===== */
+function showBonusScreen(){
+  var dd = d(), ll = l();
+  $('bonus-title').textContent = ll.bonusTitle;
+  $('bonus-subtitle').textContent = ll.bonusSubtitle;
+  $('bonus-a-text').textContent = dd.bonus.a;
+  $('bonus-b-text').textContent = dd.bonus.b;
+  $('btn-see-results').textContent = ll.seeResults;
+  $('btn-back-bonus-label').textContent = ll.backButton;
+
+  renderBonusOptions('bonus-a-options','a');
+  renderBonusOptions('bonus-b-options','b');
+  updateSeeResults();
+}
+
+function renderBonusOptions(containerId, which){
+  var dd = d();
+  var wrap = $(containerId);
+  wrap.innerHTML = '';
+  var current = which==='a'?state.bonusA:state.bonusB;
+  for(var i=0;i<3;i++){
+    var card = document.createElement('label');
+    card.className = 'option-card' + (current===i?' selected':'');
+    card.setAttribute('tabindex','0');
+    var radio = document.createElement('input');
+    radio.type='radio';radio.name='bonus_'+which;radio.value=i;
+    if(current===i) radio.checked=true;
+    var num = document.createElement('span');
+    num.className='option-num';num.textContent=i;
+    var lbl = document.createElement('span');
+    lbl.className='option-label';lbl.textContent=dd.scoreLabels[i];
+    card.appendChild(radio);
+    card.appendChild(num);
+    card.appendChild(lbl);
+    (function(val,w){
+      card.addEventListener('click', function(e){
+        e.preventDefault();
+        if(w==='a') state.bonusA=val; else state.bonusB=val;
+        renderBonusOptions(containerId,w);
+        updateSeeResults();
+      });
+      card.addEventListener('keydown', function(e){
+        if(e.key==='Enter'||e.key===' '){
+          e.preventDefault();
+          if(w==='a') state.bonusA=val; else state.bonusB=val;
+          renderBonusOptions(containerId,w);
+          updateSeeResults();
+        }
+      });
+    })(i,which);
+    wrap.appendChild(card);
+  }
+}
+
+function updateSeeResults(){
+  $('btn-see-results').disabled = (state.bonusA<0 || state.bonusB<0);
+}
+
+$('btn-back-bonus').addEventListener('click', function(){
+  state.currentQ = 20;
+  showQuestion();
+  showScreen('screen-question');
+});
+
+$('btn-see-results').addEventListener('click', function(){
+  if(state.bonusA>=0 && state.bonusB>=0){
+    showResults();
+    showScreen('screen-results');
+  }
+});
+
+/* ===== RESULTS ===== */
+function showResults(){
+  var dd = d(), ll = l();
+  var scores = {};
+  BLOCKS.forEach(function(b){ scores[b]=0; });
+
+  for(var i=0;i<21;i++){
+    var origItem = state.shuffled[i].item;
+    scores[origItem.block] += state.answers[i];
+  }
+
+  // Find dominant
+  var maxScore = -1;
+  BLOCKS.forEach(function(b){ if(scores[b]>maxScore) maxScore=scores[b]; });
+  var dominant = BLOCKS.filter(function(b){ return scores[b]===maxScore; });
+
+  var html = '';
+
+  // Dominant phase section
+  html += '<div class="section-title">'+ll.dominantPhase+'</div>';
+
+  if(dominant.length > 1){
+    html += '<div class="transition-note">';
+    if(state.lang==='en') html += 'You\u2019re in transition between these phases \u2014 that\u2019s normal.';
+    else html += 'Je zit in een overgang tussen deze fases \u2014 dat is normaal.';
+    html += '</div>';
+  }
+
+  dominant.forEach(function(b){
+    var r = dd.results[b];
+    html += '<div class="result-phase">';
+    html += '<div class="phase-name">\u2605 '+r.phase+'</div>';
+    html += '<div class="tagline">\u201c'+r.tagline+'\u201d</div>';
+    html += '<div class="desc">'+r.desc+'</div>';
+    html += '<div class="help"><strong>'+(state.lang==='en'?'Tip':'Tip')+':</strong> '+r.help+'</div>';
+    html += '</div>';
+  });
+
+  // Bar chart
+  html += '<div class="section-title" style="margin-top:32px">'+ll.allScores+'</div>';
+  html += '<div class="chart">';
+  BLOCKS.forEach(function(b){
+    var r = dd.results[b];
+    var pct = (scores[b]/6)*100;
+    var isDom = dominant.indexOf(b)>=0;
+    html += '<div class="chart-row">';
+    html += '<div class="chart-label">'+(isDom?'<span class="star">\u2605</span> ':'')+r.phase+'</div>';
+    html += '<div class="chart-bar-wrap"><div class="chart-bar'+(isDom?' dominant':'')+'" style="width:'+pct+'%"></div></div>';
+    html += '<div class="chart-score">'+scores[b]+'/6</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Bonus
+  html += '<div class="section-title" style="margin-top:32px">'+ll.bonusResult+'</div>';
+  var bInterp;
+  if(state.bonusA > state.bonusB) bInterp = dd.bonusInterpretations.aHigher;
+  else if(state.bonusB > state.bonusA) bInterp = dd.bonusInterpretations.bHigher;
+  else bInterp = dd.bonusInterpretations.equal;
+  html += '<div class="bonus-result">'+bInterp+'</div>';
+
+  // Team spread
+  if(state.mode==='team'){
+    html += '<div class="spread-section">';
+    html += '<div class="section-title" style="margin-top:32px">'+ll.spreadTitle+'</div>';
+    html += '<p class="interp-notes" style="margin-bottom:16px">'+ll.teamSpreadIntro+'</p>';
+    var sLabels = dd.spreadLabels;
+    BLOCKS.forEach(function(b){
+      var r = dd.results[b];
+      html += '<div class="spread-row" data-spread-block="'+b+'">';
+      html += '<div class="spread-phase-label">'+r.phase+'</div>';
+      html += '<div class="spread-options">';
+      for(var si=0;si<3;si++){
+        var sel = (state.spread[b]===si)?'selected':'';
+        html += '<button class="spread-opt '+sel+'" data-block="'+b+'" data-val="'+si+'">'+sLabels[si]+'</button>';
+      }
+      html += '</div></div>';
+    });
+    html += '</div>';
+  }
+
+  // Interpretation notes
+  html += '<div class="section-title" style="margin-top:32px">'+ll.interpretationTitle+'</div>';
+  html += '<p class="interp-notes">'+dd.interpretationNotes+'</p>';
+
+  // Start over
+  html += '<button class="btn-primary" id="btn-start-over" style="margin-top:32px">'+ll.startOver+'</button>';
+
+  $('results-card').innerHTML = html;
+
+  // Bind start over
+  $('btn-start-over').addEventListener('click', function(){
+    state.answers = new Array(21).fill(-1);
+    state.currentQ = 0;
+    state.bonusA = -1;
+    state.bonusB = -1;
+    state.spread = {};
+    updateStartScreen();
+    showScreen('screen-start');
+  });
+
+  // Bind spread buttons
+  if(state.mode==='team'){
+    document.querySelectorAll('.spread-opt').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var b = this.dataset.block;
+        var v = parseInt(this.dataset.val);
+        state.spread[b] = v;
+        var row = this.closest('.spread-row');
+        row.querySelectorAll('.spread-opt').forEach(function(o){
+          o.classList.toggle('selected', parseInt(o.dataset.val)===v);
+        });
+      });
+    });
+  }
+
+  // Animate bars
+  setTimeout(function(){
+    document.querySelectorAll('.chart-bar').forEach(function(bar){
+      bar.style.width = bar.style.width;
+    });
+  },50);
+}
+
+/* ===== KEYBOARD ===== */
+document.addEventListener('keydown', function(e){
+  // Question screen
+  if($('screen-question').classList.contains('active')){
+    if(e.key==='1'||e.key==='2'||e.key==='3'){
+      e.preventDefault();
+      selectAnswer(parseInt(e.key)-1);
+    }
+    if(e.key==='Backspace' && state.currentQ>0){
+      e.preventDefault();
+      state.currentQ--;
+      showQuestion();
+    }
+  }
+});
+
+/* ===== INIT ===== */
+updateStartScreen();
+
+})();
+</script>
+</body>
+</html>
