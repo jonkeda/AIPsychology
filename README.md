@@ -1,6 +1,6 @@
 # The AI Psychological Adaptation Cycle
 
-> **Work in progress.** This model is based on observation and existing psychological literature, but has not been empirically validated. Use it as a thinking tool, not as established science.
+> **Hypothesis, not established science.** This model is based on observation and pattern recognition, not empirical research. It has not been validated through formal study, and its constructs have not been operationalised or tested. Treat it as a hypothesis to be examined — a starting point for inquiry, not a conclusion.
 
 A model of how people psychologically adapt to AI in the workplace — covering identity dynamics, emotional response, delegation depth, social context, and external disruption.
 
@@ -15,6 +15,7 @@ A single-page app (no tracking, no data sent anywhere) that helps you — or you
 ### Model
 
 - [**The Model (v3)**](.my/Analysis/Model3.md) — The full psychological framework: 8 stages from pre-exposure to stabilisation, a delegation-depth axis, external trigger layer, and social context layer.
+- [**Original Model (v3)**](.my/Model/Model3.md) — The unedited source document from which the articles and tools were derived.
 
 ### Articles
 
@@ -68,7 +69,7 @@ Ready-to-use email templates for introducing AI adoption conversations:
 
 ## The Model in Brief
 
-People don't adopt AI in a straight line. They spiral through recognisable psychological phases:
+The hypothesis: people don't adopt AI in a straight line. They spiral through recognisable psychological phases:
 
 1. **Dismissal** — "It's just hype"
 2. **Resistance** — "I'll find the flaws"
