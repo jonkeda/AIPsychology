@@ -33,10 +33,10 @@ Both are defined below before any state uses them. They modulate the *qualitativ
 
 A property of the person relative to a capability domain. A single person can have low stakes in one domain (using AI for travel planning) and high stakes in another (using AI for the craft they trained in for twenty years).
 
-| Identity Stakes | Description | Effect on the model |
-| --- | --- | --- |
-| **Low** | Skill or role is not a core part of self-concept | Resistance and shock states (S2D, S3, S3B) are weak or skipped |
-| **High** | Skill or role is closely tied to identity (craft, expertise, profession) | Resistance and shock states are amplified and often unavoidable |
+| Identity Stakes | Description                                                              | Effect on the model                                             |
+| --------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------- |
+| **Low**   | Skill or role is not a core part of self-concept                         | Resistance and shock states (S2D, S3, S3B) are weak or skipped  |
+| **High**  | Skill or role is closely tied to identity (craft, expertise, profession) | Resistance and shock states are amplified and often unavoidable |
 
 Mechanism: **role-identity centrality** (the degree to which a role is central to the self-concept). High centrality predicts threat appraisal under capability challenge.
 
@@ -46,12 +46,12 @@ Mechanism: **role-identity centrality** (the degree to which a role is central t
 
 A property of a single interaction. Defines how much cognitive authority is delegated for that task.
 
-| Level | Example | Qualitative weight |
-| --- | --- | --- |
-| **D1. Information** | "Summarize this article" | Low — no identity engagement |
-| **D2. Task execution** | "Write this email for me" | Moderate — skill relevance |
-| **D3. Creative delegation** | "Draft this design / strategy / argument" | High — core identity engaged |
-| **D4. Autonomous partnership** | "Make decisions with me" | Very high — agency at stake |
+| Level                                | Example                                   | Qualitative weight            |
+| ------------------------------------ | ----------------------------------------- | ----------------------------- |
+| **D1. Information**            | "Summarize this article"                  | Low — no identity engagement |
+| **D2. Task execution**         | "Write this email for me"                 | Moderate — skill relevance   |
+| **D3. Creative delegation**    | "Draft this design / strategy / argument" | High — core identity engaged |
+| **D4. Autonomous partnership** | "Make decisions with me"                  | Very high — agency at stake  |
 
 Qualitative experience of any state scales with both axes. V4 expressed this as the formula `intensity = baseline × Stakes × Delegation`. V5 removes the formula because the multipliers have no defined units and the result is not measurable. The qualitative anchor table under S3 below is the operative claim.
 
@@ -200,13 +200,13 @@ The emotional core of the model. Anxiety, grief, fear of obsolescence, existenti
 
 **Mechanism anchor:** **self-efficacy collapse** under domain-specific capability threat (Bandura's term — a person's belief that they can actually do the thing). When AI demonstrably performs a task the person built their self-concept around, the belief that "I can do this" no longer carries unique weight. A secondary mechanism is **terror management** in the loose sense — confrontation with one's own replaceability triggers the same kind of existential discomfort that confrontation with mortality does. The two mechanisms compound; S3 is rarely "just" one of them.
 
-| Stakes × D-Level | Experienced as |
-| --- | --- |
-| Low × D1 | Mild surprise — "It's useful" |
-| Low × D4 | Curiosity tinged with vertigo |
-| High × D2 | Discomfort — "It does this faster than me" |
-| High × D3 | Identity crisis — "It can do what I trained for" |
-| High × D4 | Existential — "What is my role now?" |
+| Stakes × D-Level | Experienced as                                    |
+| ----------------- | ------------------------------------------------- |
+| Low × D1         | Mild surprise — "It's useful"                    |
+| Low × D4         | Curiosity tinged with vertigo                     |
+| High × D2        | Discomfort — "It does this faster than me"       |
+| High × D3        | Identity crisis — "It can do what I trained for" |
+| High × D4        | Existential — "What is my role now?"             |
 
 **Transitions:**
 
@@ -455,14 +455,14 @@ Discrete events that change transition probabilities. ⚡ markers in state descr
 
 > A state carries ⚡ if and only if at least one named external event materially changes the probability of entering or leaving that state. States that change only through internal cognition or ambient social context do not carry ⚡.
 
-| Trigger | Typical effect |
-| --- | --- |
-| Model release | Forward push (S2D → S3) or regression (S5/S7 → S3) |
-| Workplace mandate | Compresses S0–S2D; can force S5 without S3 |
-| Media narrative | Amplifies whichever state matches the narrative's framing |
-| AI failure (visible) | Regression from any state; reinforces S2D |
-| Regulatory change | Freezes adoption or forces re-evaluation |
-| Personal underperformance | Re-triggers S3 from any S5–S7 state |
+| Trigger                   | Typical effect                                            |
+| ------------------------- | --------------------------------------------------------- |
+| Model release             | Forward push (S2D → S3) or regression (S5/S7 → S3)      |
+| Workplace mandate         | Compresses S0–S2D; can force S5 without S3               |
+| Media narrative           | Amplifies whichever state matches the narrative's framing |
+| AI failure (visible)      | Regression from any state; reinforces S2D                 |
+| Regulatory change         | Freezes adoption or forces re-evaluation                  |
+| Personal underperformance | Re-triggers S3 from any S5–S7 state                      |
 
 ---
 
@@ -489,12 +489,12 @@ A dropout is characterized by two scores:
 
 A dropout is not a single point on one axis but a position on the plane.
 
-| Region | Description | Intervention |
-| --- | --- | --- |
-| High practical / low emotional | Tool genuinely doesn't work for them | Better tools, training, defaults |
-| Low practical / high emotional | Identity threat or exhaustion | Psychological support, gradual re-exposure, social context shift |
+| Region                          | Description                                         | Intervention                                                        |
+| ------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------- |
+| High practical / low emotional  | Tool genuinely doesn't work for them                | Better tools, training, defaults                                    |
+| Low practical / high emotional  | Identity threat or exhaustion                       | Psychological support, gradual re-exposure, social context shift    |
 | High practical / high emotional | Mixed — tool failed in an identity-vulnerable spot | Both interventions; address tool first to clear the rationalization |
-| Low / low | Boredom, indifference, opportunity cost | Often not worth intervening |
+| Low / low                       | Boredom, indifference, opportunity cost             | Often not worth intervening                                         |
 
 **Operational test (the reversibility check).** Provide the dropout with a tool that demonstrably solves their cited failure. If they restart, practical severity was high. If they don't, emotional severity was driving the exit even if the cited reason was practical. This is the closest thing the model has to a clean operationalization of the dropout space.
 
@@ -557,7 +557,7 @@ These claims are in the model because they are useful frames, not because they a
 - The dual-component stability requirement for S5 (internal reframing + social normalization).
 - The S7F-without-S3 collapse claim.
 - "Most people cycle through the model more than once."
-- The Cultural Variability section in full.
+- The Cultural V	ariability section in full.
 
 A future version may upgrade these from conjecture to tested claims if data is gathered. Until then, they should not be cited as model predictions.
 

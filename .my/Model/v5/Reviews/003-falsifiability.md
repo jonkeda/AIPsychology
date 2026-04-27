@@ -1,0 +1,51 @@
+# Falsifiability and Predictive Power — Model V5
+
+## TL;DR
+
+- V5 downgrades claims from "falsifiable" to "conjecture" or "heuristic." No remaining contradiction between what's claimed as testable and what actually is.
+- Four key conjectures (dual-component S5 Understanding stability, S7F Evangelism-without-S3 Ego Shock, "cycle more than once", cultural variability) are operationalizable with 12–24 month studies on 30–80 participants. The downgrade could become an upgrade.
+- The reversibility test for dropout cleanly splits practical versus emotional causation but requires follow-up interviews and delayed re-offer to map the four quadrants accurately.
+- The S2T Trust Evaluation versus S2D Defensive Resistance asymmetric-updating signal is measurable via controlled behavioral task but needs controls for prior beliefs and specification of which evidence types trigger the asymmetry.
+- V5 disciplines the falsifiability problem well and is ready for empirical work; the studies need refinement on the confound side.
+
+## Findings
+
+1. **Mechanism anchors** (the psychological explanations for why someone is in a given state — for example, S3 Ego Shock anchored to "self-efficacy collapse and terror management") are explanatory, not predictive. They explain why someone is in a state but do not tell you how to test which state they occupy. If someone appears distressed, you might attribute it to self-efficacy collapse, but you cannot falsify that attribution against other possibilities such as financial anxiety triggered by obsolescence fears. This conflates epistemic levels: explaining a state is not the same as identifying one. Add a note under "Mechanism anchors" stating: "Mechanism anchors are explanatory glosses, not testable predictions. They clarify why a person is in a state, not which state they occupy."
+
+2. The ⚡ marker on S3B Bargaining labels "model releases" as the **primary destabilizer**. But the model's own logic shows that S3B Bargaining is entered from S2D Defensive Resistance via internal cognitive dissonance (the discomfort from holding contradictory beliefs about own skill versus AI skill). Model releases trigger and accelerate this state but do not uniquely cause it. A person in S2D Defensive Resistance can internally resolve the dissonance without waiting for a new model. Clarify S3B Bargaining's ⚡ marker to: "Accelerated by: model releases. Entered from: S2D Defensive Resistance via internal cognitive dissonance resolution. Not the primary cause." Remove "primary."
+
+3. "Most people cycle through the model more than once" is currently marked qualitative conjecture. This is **operationalizable**: gather 60 people identified as in S5 Understanding or S7, follow them for 18 months, code state transitions quarterly, count how many regress to S2D Defensive Resistance or S3 Ego Shock and then return. If fewer than 30% show cycling, the claim fails. Budget: roughly $80k for a longitudinal panel with quarterly interviews.
+
+4. The S5 Understanding dual-component stability claim — "Stability has two components, both required: Internal reframing (personal mental model is coherent) and Social normalization (surrounding environment treats AI use as unremarkable)" — is currently marked conjecture and is **directly measurable**. Internal reframing via interview: ask them to explain when and how they use AI, rate the coherence of their account. Social normalization via survey: how often do they mention AI use in meetings without explanation? How often do colleagues mention it to them? Design: 50 people identified as in S5 Understanding, measure both components on entry, follow them 12 months, code whether erosion of either component predicts regression. Budget: roughly $60k.
+
+5. The S7F Evangelism-without-S3 Ego Shock collapse claim is currently marked conjecture: "Most stable when the person has previously passed through S3 Ego Shock. Lived experience of Ego Shock (the destabilizing realization that one's core skills are no longer rare) is what makes them credible to others currently in it." Test via interview: recruit 25 active AI mentors or evangelists, ask directly whether they experienced S3 Ego Shock discomfort in their own adoption. Follow them for a year. If any S7F Evangelism advocates who never felt threatened collapse into S6D Social Overuse (social-pressure-driven reasoning), the claim fails. If S7F Evangelism advocates without S3 Ego Shock remain stable, the claim fails. Budget: roughly $20k for 25 interviews plus 12-month check-ins.
+
+6. The S3B Bargaining versus S7A Maturity heuristic distinction is currently marked heuristic, not measured: "In S3B Bargaining, boundaries are renegotiated under capability pressure. When a new model release crosses a self-imposed line, the line moves quickly without documented testing. In S7A Maturity, boundaries move only after measured evidence." This is **testable** via longitudinal behavioral tracking: recruit 40 people (20 in S3B Bargaining, 20 in S7A Maturity), track their AI-use scope across two model releases (expect 6–12 month gap), code whether boundary movement is preceded by explicit testing or benchmarking. Budget: roughly $50k.
+
+7. The reversibility test for dropout has four **confounds** that must be controlled. Tool-switching friction: a better tool still carries learning cost and habit discontinuity (control: offer the tool with full training and 2-week follow-along). Social face-saving: restarting looks like flip-flopping if they publicly quit (control: offer the tool under a private study frame). Shame entanglement: practical failure triggers identity shame; fixing the tool alone may not restore use if shame lingers (control: include post-restart interview asking "Did fixing the tool remove all reluctance, or did something else feel uncomfortable?"). Stress-cycle regression: ambient stress recovery might masquerade as tool fix (control: test the tool during similarly stressful periods as the original dropout).
+
+8. The reversibility test does not **map cleanly** to the four-quadrant model (practical × emotional) without follow-up measurement. It separates restarters (practical severity was high) from non-restarters (emotional severity was high) but does not map all four quadrants. To do so, interview all restarters ("Did identity threat contribute to your exit?"), interview all non-restarters ("Would you say the tool didn't work, or did it feel risky?"), and re-offer the tool to non-restarters 6 months later. Rename this section "Reversibility Test (Screening Instrument)" and add: "The test separates practical-driven from emotional-driven dropouts at first pass. To map mixed causality and measure emotional severity quantitatively, follow with structured interview and consider re-offer after 6 months."
+
+9. The S2T Trust Evaluation versus S2D Defensive Resistance asymmetric-updating signal is **measurable and grounded** in known psychology (identity-protective cognition from Dan Kahan's work on political belief; Festinger on cognitive dissonance). Show 40 S2T Trust Evaluation and 40 S2D Defensive Resistance people a series of AI outputs (8 strong, 8 weak), ask them to estimate "What fraction of outputs would you expect to be this strong or weak?", measure whether S2D Defensive Resistance people weight negative examples more heavily. This is standard behavioral-judgment methodology.
+
+10. A **confound** undermines that study: S2T Trust Evaluation and S2D Defensive Resistance people might simply hold different prior beliefs about AI capabilities. If S2D Defensive Resistance people genuinely think "AI is weak at this task" and S2T Trust Evaluation people think "AI is strong," they would naturally discount and amplify different evidence without any identity-protection mechanism. To test asymmetric updating as identity protection, elicit their prior belief explicitly ("Before today, what fraction of AI outputs at this task would you have guessed were good?"), show evidence that contradicts their prior, and measure belief change. S2D Defensive Resistance people should resist updating more than S2T Trust Evaluation people, even when the evidence is identical.
+
+11. V5 lacks **specificity** on which evidence types trigger asymmetric updating. The model says asymmetry happens on "positive evidence" but does not specify whether it happens on all positive evidence or only in high-stakes domains. If someone is S2D Defensive Resistance about AI for creative design (high-stakes core skill) but S2T Trust Evaluation about AI for email summaries (low-stakes), would asymmetry show equally? Specify: "Asymmetric updating in S2D Defensive Resistance is strongest for evidence in the domain where identity stakes are high. Evidence in low-stakes domains may not trigger asymmetry."
+
+## Recommendations
+
+1. Add a clarifying note under "Mechanism anchors": they are explanatory, not testable predictions.
+
+2. Revise S3B Bargaining's ⚡ marker: remove "primary destabilizer" and specify that model releases accelerate (do not uniquely trigger) the state.
+
+3. Add a subsection to S3B Bargaining titled "Operationalizing the S3B Bargaining/S7A Maturity distinction" — specify that longitudinal observation requires coding boundary-movement behavior across at least two model releases.
+
+4. Rename "Reversibility Test" to "Reversibility Test (Screening Instrument)" and add follow-up guidance: interview for emotional severity; consider re-offer after 6 months.
+
+5. Commission a 12–18 month longitudinal study on S5 Understanding dual-component stability (50 participants, quarterly measurement, roughly $60k).
+
+6. Commission a 12-month cycling-and-regression study (60 participants, 18-month track, roughly $80k). This directly tests "Most people cycle through the model more than once."
+
+7. Design and validate a controlled behavioral task for S2T Trust Evaluation versus S2D Defensive Resistance asymmetric-updating (80 participants, controlled evidence evaluation, controlled priors, roughly $40k). Use this to replace "longitudinal-only" with "testable via controlled task."
+
+8. Commission a 25-person interview study on S7F Evangelism stability with and without prior S3 Ego Shock (check for collapse under pressure at 12 months, roughly $20k).

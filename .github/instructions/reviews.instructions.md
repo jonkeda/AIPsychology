@@ -29,6 +29,23 @@ Every review uses this shape:
 
 No preamble. No "In this review I will…". Start with the TL;DR.
 
+### Finding headings are verdicts, not topics
+
+Write the heading as a complete claim about what is wrong. The reader should know the conclusion before reading the body.
+
+Good: `### 2. The ⚡ marker on S3B Bargaining is overstated`
+Bad: `### 2. S3B Bargaining — ⚡ usage`
+
+If the finding is about a claim the model makes that can be tested, append `— testable` to the heading. If it cannot yet be tested, append `— not yet tested`.
+
+Good: `### 3. "Most people cycle through more than once" — testable`
+
+### Fix: belongs inside the finding
+
+Put a `**Fix:**` line at the end of every finding body, immediately below the problem description. Do not wait for the Recommendations section. Recommendations re-lists priorities; `Fix:` is where the reader finds out what to change.
+
+The Recommendations section should still exist and list the fixes in priority order, but it should not be the only place they appear.
+
 ## File naming and numbering
 
 Reviews must be numbered so the chronological order is obvious from the filename alone.
@@ -81,6 +98,22 @@ Better to deliver the full critique across 3 files than a watered-down version i
 - Avoid Latin abbreviations (i.e., e.g., cf., etc.) — write "for example", "such as", "compare with".
 - Avoid academic throat-clearing ("It is worth noting that…", "One might argue…"). Just say it.
 
+### State labels need a plain gloss every time they appear in a new finding
+
+Every state label (S2D, S3B, S7A, and so on) must have a short plain-English gloss on its first appearance in each finding where it shows up. Use a parenthetical immediately after the label.
+
+Example: `S3B Bargaining (where someone makes a deal with themselves to use AI for some things but not others)`
+
+After the first definition inside a finding, you may use the label alone for the rest of that finding. But if the label reappears in a new finding, gloss it again there.
+
+Do not assume the reader remembers what a state means from three findings earlier.
+
+### Use conversational signposts to guide the reader
+
+Before a numbered list, a test protocol, or a chain of logic, use a short cue phrase: "Here's how:", "Here's the trap:", "Here's why:", "Four things can go wrong:". This tells the reader what is coming and why they should read it.
+
+Do not use a bullet list where a short cued paragraph is clearer. Lists are for parallel items. Narrative with a signpost is for causation and sequence.
+
 ## Citing prior work
 
 When referencing existing theories or authors:
@@ -95,6 +128,7 @@ When referencing existing theories or authors:
 - **Specific where it matters, general where it doesn't.**
 - Any critique of a *specific stage, transition, or claim* must point at it directly — quote the line or name the section. No vague "Stage 4 feels weak."
 - High-level observations about the model as a whole can stay general, but should still be falsifiable ("the model has no failure mode for X" is fine; "the model feels off" is not).
+- When a finding describes a testable claim and proposes a study, include a rough sample size, time horizon, and cost estimate. A ballpark that is wrong by 50% is more useful than nothing. Example: "40 people across two model releases, about $50k." Keep it to one line.
 
 ## Actionability
 

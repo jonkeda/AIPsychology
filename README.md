@@ -1,87 +1,75 @@
 # The AI Psychological Adaptation Cycle
 
-> **Hypothesis, not established science.** This model is based on observation and pattern recognition, not empirical research. It has not been validated through formal study, and its constructs have not been operationalised or tested. Treat it as a hypothesis to be examined — a starting point for inquiry, not a conclusion.
+> **Descriptive, not empirically validated.** This model is based on observation and pattern recognition. Its claims are grounded in related psychological literature but have not been tested in formal studies. Treat every state description as a well-grounded hypothesis. Where claims go beyond what has been observed, they are marked **Conjecture** inline.
 
-A model of how people psychologically adapt to AI in the workplace — covering identity dynamics, emotional response, delegation depth, social context, and external disruption.
+A descriptive model of how knowledge workers and creatives psychologically adapt to AI — covering identity dynamics, emotional response, delegation depth, social context, and external disruption.
+
+## The Model (V6)
+
+**[Start here → Model6.md](.my/Model/v6/Model6.md)**
+
+V6 is the current version. It is a descriptive-first rewrite of V5, split into per-state files with mermaid diagrams. Read `Model6.md` first — it is self-contained in about five minutes and links to everything else.
+
+### States
+
+| ID | Name | One-liner |
+|----|------|-----------|
+| [S0](.my/Model/v6/states/S0-baseline.md) | Baseline | No AI use; includes both pre-encounter users and permanent non-users |
+| [S1](.my/Model/v6/states/S1-initial-encounter.md) | Initial Encounter | First substantive contact with AI |
+| [S2T](.my/Model/v6/states/S2T-trust-evaluation.md) | Trust Evaluation | Testing AI with an open verdict |
+| [S2D](.my/Model/v6/states/S2D-defensive-resistance.md) | Defensive Resistance | Testing AI but weighting evidence asymmetrically |
+| [S3E](.my/Model/v6/states/S3E-ego-shock.md) | Ego Shock | Identity disruption — "if AI can do this, what does that make me?" |
+| [S3B](.my/Model/v6/states/S3B-bargaining.md) | Bargaining | Identity-bounded use — AI welcomed inside a drawn line |
+| [S3X](.my/Model/v6/states/S3X-structural-displacement.md) | Structural Displacement | S3E person concludes role is economically non-viable |
+| [PEN](.my/Model/v6/states/PEN-pre-emptive-non-adoption.md) | Pre-emptive Non-Adoption | Values-grounded refusal before capability testing |
+| [S5](.my/Model/v6/states/S5-understanding.md) | Understanding | Calibrated use with internal coherence and social recognition |
+| [S6E](.my/Model/v6/states/S6E-enthusiastic-overuse.md) | Enthusiastic Overuse | High-volume use driven by variable-reward excitement |
+| [S6D](.my/Model/v6/states/S6D-dependent-overuse.md) | Dependent Overuse | High-volume use driven by anxiety and eroded self-trust |
+| [S6R](.my/Model/v6/states/S6R-driven-overuse.md) | Driven Overuse | High-volume use driven by productivity pressure |
+| [S6S](.my/Model/v6/states/S6S-social-overuse.md) | Social Overuse | High-volume use driven by peer conformity |
+| [S7M](.my/Model/v6/states/S7M-maturity.md) | Maturity | Calibrated, evidence-driven, bounded use |
+| [S7I](.my/Model/v6/states/S7I-identity-expansion.md) | Identity Expansion | AI integrated into professional identity as growth |
+| [S7E](.my/Model/v6/states/S7E-ethical-integration.md) | Ethical Integration | Reflective, values-aware integration |
+| [S7B](.my/Model/v6/states/S7B-burnout.md) | Burnout | Resource depletion from sustained high-intensity AI engagement |
+| [S7V](.my/Model/v6/states/S7V-evangelism.md) | Evangelism | Advocacy grounded in genuine depth of experience |
+
+### Supporting files
+
+| File | Purpose |
+|------|---------|
+| [01-axes.md](.my/Model/v6/01-axes.md) | Identity Stakes, Task Delegation Level (D1–D4), Delegation Ceiling |
+| [02-state-graph.md](.my/Model/v6/02-state-graph.md) | Full mermaid state graph with occupancy and transition rules |
+| [00-relationship-to-prior.md](.my/Model/v6/00-relationship-to-prior.md) | Relationship to TAM, Rogers, TTM, Gartner, and V5 |
+| [triggers.md](.my/Model/v6/triggers.md) | External trigger layer (⚡) — capability jumps, mandates, peer effects |
+| [social-context.md](.my/Model/v6/social-context.md) | Ambient social field and its effects on state intensity |
+| [dropout.md](.my/Model/v6/dropout.md) | Two-axis dropout model (practical vs. emotional; shallow vs. deep) |
+| [populations.md](.my/Model/v6/populations.md) | Scope, AI-native users, non-knowledge-work, assistive tech, permanent non-users, economic access |
+| [healthiness.md](.my/Model/v6/healthiness.md) | Per-state healthiness map (Sustainable / Transitional / Recovery) |
+| [usage.md](.my/Model/v6/usage.md) | What the model can and cannot (yet) be used for |
+| [observation-guide.md](.my/Model/v6/observation-guide.md) | Concrete behavioral markers — S6 distinctions, S3B vs S7M, S2T vs S2D |
+| [limits-of-operationalization.md](.my/Model/v6/limits-of-operationalization.md) | Testable claims, conjectures, and longitudinal-only observations |
+
+## What this model adds
+
+People do not adopt AI in a straight line. They move through recognisable psychological states, and two factors determine how intensely they experience each one:
+
+1. **Identity Stakes** — how central the skill AI is replicating is to the person's professional self-concept. High stakes amplify every state; low stakes compress or skip the difficult ones.
+2. **Task Delegation Level (D1–D4)** — how much cognitive authority the person hands to AI in one interaction. Handing full creative authority over a core skill (D4 in a high-stakes domain) is the most activating combination.
+
+These axes are **per-domain** and **per-interaction** — the same person can be in different states for different skills at the same time.
 
 ## Try the Scorecard
 
 **[Launch the AI Adoption Scorecard →](https://jonkeda.github.io/AIPsychology/)**
 
-A single-page app (no tracking, no data sent anywhere) that helps you — or your team — figure out where you stand with AI.
+A single-page app (no tracking, no data sent anywhere) that helps you — or your team — figure out where you stand with AI. Based on V5; V6 update pending.
 
-## What's in this repo
+## Earlier versions
 
-### Model
-
-- [**The Model (v3)**](.my/Analysis/Model3.md) — The full psychological framework: 8 stages from pre-exposure to stabilisation, a delegation-depth axis, external trigger layer, and social context layer.
-- [**Original Model (v3)**](.my/Model/Model3.md) — The unedited source document from which the articles and tools were derived.
-
-### Articles
-
-Various write-ups of the model for different audiences and formats:
-
-| File | Description |
-|------|-------------|
-| [Economist-style](.my/Article/Article3_Economist.md) | Long-form article in the style of *The Economist* |
-| [Economist 500 words](.my/Article/Article3_Economist_500.md) | Condensed version (~500 words) |
-| [Economist 500 v2](.my/Article/Article3_Economist_500v2.md) | Alternate condensed version |
-| [Framework EN](.my/Article/Article3_Framework_EN.md) | English internal article — "Where are you on the AI spiral?" |
-| [Framework NL](.my/Article/Article3_Framework_NL.md) | Dutch version — "De deal die je waarschijnlijk nu met AI maakt" |
-| [NL Essay](.my/Article/Article3_NL_Essay.md) | Dutch long-form essay |
-| [NL Single Page](.my/Article/Article3_NL_SinglePage.md) | Dutch one-pager |
-
-### Change Management Toolkit
-
-Practical tools for managers and teams navigating AI adoption, available in English and Dutch.
-
-**English** ([.my/ChangeManagement/en/](.my/ChangeManagement/en/)):
-- Playbook — step-by-step guide for leading teams through the cycle
-- Diagnostic worksheet — identify where individuals and teams are
-- Intervention cards — stage-specific actions
-- Individual & team scorecards (paper versions)
-
-**Dutch** ([.my/ChangeManagement/nl/](.my/ChangeManagement/nl/)):
-- Playbook, diagnostic, intervention cards, and scorecards in Dutch
-
-**Interactive App** ([Live on GitHub Pages](https://jonkeda.github.io/AIPsychology/) · [source](.my/ChangeManagement/app/)):
-- Single-file HTML scorecard — no dependencies, no tracking, works offline
-- Supports individual + team modes in English and Dutch
-- Deployed automatically via GitHub Actions on push to `main`
-
-### Validation (planned, not yet conducted)
-
-- [Validation plan](.my/Validation/validation-plan.md)
-- [Internal survey method](.my/Validation/method-1-internal-survey.md)
-- [Manager observation method](.my/Validation/method-4-manager-observation.md)
-
-### Email Templates
-
-Ready-to-use email templates for introducing AI adoption conversations:
-- [Long](.my/emails/email-ai-adoption.md) · [Medium](.my/emails/email-ai-adoption-medium.md) · [Short](.my/emails/email-ai-adoption-short.md)
-
-### Reviews & Research
-
-- [Model review](.my/review.md) — Critical review of the model's strengths and gaps
-- [Article review](.my/review-article3.md) — Detailed feedback on article v3
-- [Original research conversations](.my/Original/) — The iterative process that built the model (files a–j)
-- [Writing options](.my/proposals/article3-writing-options.md) — Explored article formats
-
-## The Model in Brief
-
-The hypothesis: people don't adopt AI in a straight line. They spiral through recognisable psychological phases:
-
-1. **Dismissal** — "It's just hype"
-2. **Resistance** — "I'll find the flaws"
-3. **Ego Shock** — "If it can do *that*, what's my role?"
-4. **Bargaining** — "I'll use it, but only for X"
-5. **Trust Building** — "Let me test systematically"
-6. **Overcompensation** — "Use it for everything!"
-7. **Stabilisation** — "It's just a tool"
-
-The intensity depends on **delegation depth** (summarising an article vs. drafting a strategy) and is shaped by **external triggers** (model releases, workplace mandates, media) and **social context** (peer adoption, cultural framing).
-
-Each loop through the spiral gets shorter and less intense — but a new model release or capability jump can restart the cycle.
+- [**V5**](.my/Model/v5/Model5.md) — frozen; the source V6 was built from.
+- [**V5 → V6 implementation plan**](.my/Update/V5V6/00-Plan-Overview.md) — all 10 planning slices documenting what changed and why.
+- [**V5 reviews**](.my/Reviews/v5/) — 12 critical reviews of V5 that informed V6.
+- Earlier versions (v3, v4) exist in [.my/Model/](.my/Model/) but are superseded.
 
 ## License
 
